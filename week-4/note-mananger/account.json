@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "Samuel",
+    "lastName": "Boateng",
+    "password": "password",
+    "email": "samuel@gmail.com"
+  },
+  {
+    "firstName": "Eunice",
+    "lastName": "Okai",
+    "password": "password",
+    "email": "unice@gmail.com"
+  },
+  {
+    "firstName": "Emmanuel",
+    "lastName": "Okai",
+    "password": "password",
+    "email": "emmanuel@gmail.com"
+  },
+  {
+    "firstName": "Naomi",
+    "lastName": "Samba",
+    "password": "password",
+    "email": "naomi@gmail.com"
+  },
+  {
+    "firstName": "John",
+    "lastName": "Okyere",
+    "password": "password",
+    "email": "john@gmail.com"
+  },
+  {
+    "firstName": "Sophia",
+    "lastName": "Ayinka",
+    "password": "12345",
+    "email": "s.otoo.gmail.com"
+  }
+]
