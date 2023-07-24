@@ -15,7 +15,6 @@ const server = createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   // getting the email parameter from the query object
   const { email } = parsedUrl.query;
-  console.log(parsedUrl);
   const pathname = parsedUrl.pathname;
   switch (method) {
     case "GET":

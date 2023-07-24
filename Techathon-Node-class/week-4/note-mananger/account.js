@@ -1,5 +1,5 @@
 const { readFile, writeFile } = require("fs");
-const { writeToFile } = require("./handlingFiles");
+const { writeToFile, emailVarification: emailVerification } = require("./handlingFiles");
 
 exports.createAccount = (req, res) => {
   let data = "";
@@ -53,7 +53,6 @@ exports.getAllAccount = (req, res) => {
       );
     } else {
       data = JSON.parse(data);
-      console.log(data);
       res.writeHead(200, { "Content-Type": "application/json" });
       return res.end(JSON.stringify({ message: data }));
     }
@@ -61,9 +60,9 @@ exports.getAllAccount = (req, res) => {
 };
 
 exports.getAccountByMail = (res, email) => {
-  if (!email) {
+  if (!emailVerification(email)) {
     res.writeHead(400, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify({ message: "Email field is required" }));
+    return res.end(JSON.stringify({ message: "Enter correct email address" }));
   }
   readFile("./account.json", "utf-8", (err, data) => {
     if (err) {
@@ -86,7 +85,7 @@ exports.getAccountByMail = (res, email) => {
 };
 
 exports.deleteAccount = (req, res, email) => {
-  if (!email) {
+  if (!emailVerification(email)) {
     res.writeHead(400, { "Content-Type": "application/json" });
     return res.end(JSON.stringify({ message: "Email field required" }));
   } else {
@@ -143,10 +142,10 @@ exports.updateAccount = (req, res, email) => {
             JSON.stringify({ message: "Sorry,internal server occurred" })
           );
         } else {
-          const findAcount = fileData.find(
+          const findAccount = fileData.find(
             (account) => account.email === email
           );
-          if (!findAcount) {
+          if (!findAccount) {
             res.writeHead(200, { "Content-Type": "application/json" });
             return res.end(
               JSON.stringify({ message: "Sorry, no record found" })
@@ -155,7 +154,7 @@ exports.updateAccount = (req, res, email) => {
             let account = {
               firstName: data.firstName,
               lastName: data.lastName,
-              password: findAcount.password,
+              password: findAccount.password,
               email: data.email,
             };
 
@@ -166,7 +165,7 @@ exports.updateAccount = (req, res, email) => {
             writeToFile("./account.json", JSON.stringify(filteredAccount));
             res.writeHead(200, { "Content-Type": "application/json" });
             return res.end(
-              JSON.stringify({ message: "Record  updated successfull" })
+              JSON.stringify({ message: "Record  updated successful" })
             );
             //console.log(filteredAccount);
           }

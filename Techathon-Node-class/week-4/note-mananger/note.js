@@ -28,11 +28,11 @@ exports.addNote = (req, res, email) => {
             JSON.stringify({ message: "Sorry,internal server occurred" })
           );
         } else {
-          const findAcount = fileData.find(
+          const findAccount = fileData.find(
             (account) => account.email === email
           );
-          console.log(findAcount);
-          if (!findAcount) {
+          console.log(findAccount);
+          if (!findAccount) {
             res.writeHead(200, { "Content-Type": "application/json" });
             return res.end(
               JSON.stringify({
