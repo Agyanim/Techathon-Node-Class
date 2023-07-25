@@ -2,10 +2,11 @@ const express =require("express");
 const accountRouter = require("./accountRouter");
 const app=express()
 
-
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 app.use(accountRouter)
-app.get("/:id",(req,res)=>{
-    console.log(req);
+app.get("/",(req,res)=>{
+    res.send("Home")
 })
 
 app.listen(3000,()=>{
