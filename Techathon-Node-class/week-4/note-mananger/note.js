@@ -16,7 +16,7 @@ exports.addNote = (req, res, email) => {
         );
       } else {
         fileData = JSON.parse(fileData);
-        if (!email || !data.note || !data.email) {
+        if (!email || !data.content || !data.email || !data.title) {
           res.writeHead(400, { "Content-Type": "application/json" });
           return res.end(
             JSON.stringify({ message: "All field must be provided" })
@@ -43,7 +43,9 @@ exports.addNote = (req, res, email) => {
             let note = {
               id: new Date().getMilliseconds(),
               email: data.email,
-              note: data.note,
+              createdOn: new Date().toLocaleString(),
+              title:data.title,
+              content: data.content,
             };
             readFile("./note.json", "utf-8", (err, fileNote) => {
               if (err) {

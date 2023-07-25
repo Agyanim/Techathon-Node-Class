@@ -1,1 +1,29 @@
-[{"id":512,"email":"john@gmail.com","note":" This is my firs note."}]
+[
+	{ "id": 512, "email": "john@gmail.com", "note": " This is my firs note." },
+	{
+		"id": 383,
+		"email": "samuel@gmail.com",
+		"content": "He is truly a star of our time. Let us keep watch over his ways."
+	},
+	{
+		"id": 301,
+		"email": "samuel@gmail.com",
+		"createdOn": "7/25/2023, 6:12:59 AM",
+		"title": "The study boy",
+		"content": "He is truly a star of our time. Let us keep watch over his ways."
+	},
+	{
+		"id": 126,
+		"email": "samuel@gmail.com",
+		"createdOn": "25",
+		"title": "The study boy",
+		"content": "He is truly a star of our time. Let us keep watch over his ways."
+	},
+	{
+		"id": 870,
+		"email": "samuel@gmail.com",
+		"createdOn": "7/25/2023, 6:23:50 AM",
+		"title": "The study boy",
+		"content": "He is truly a star of our time. Let us keep watch over his ways."
+	}
+]
