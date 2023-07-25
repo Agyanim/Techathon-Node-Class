@@ -7,15 +7,16 @@ const {
   updateAccount,
   getAllAccount,
 } = require("./account");
-const { addNote } = require("./note");
+const { addNote, updateNote } = require("./note");
 
 const server = createServer((req, res) => {
   const method = req.method;
   // setting the third parameter to true gives back the query parameter as Java Script object for easy access
   const parsedUrl = url.parse(req.url, true);
   // getting the email parameter from the query object
-  const { email } = parsedUrl.query;
+  const { email, id } = parsedUrl.query;
   const pathname = parsedUrl.pathname;
+  // console.log(parsedUrl.query);
   switch (method) {
     case "GET":
       switch (pathname) {
@@ -40,9 +41,9 @@ const server = createServer((req, res) => {
         case "/account":
           createAccount(req, res);
           break;
-          case "/note":
-            addNote(req,res,email)
-            break
+        case "/note":
+          addNote(req, res, email);
+          break;
         default:
           break;
       }
@@ -55,12 +56,17 @@ const server = createServer((req, res) => {
         default:
           break;
       }
-      break
+      break;
     case "PUT":
       switch (pathname) {
         case "/account":
           updateAccount(req, res, email);
           break;
+        case "note/id":
+          console.log("put");
+          updateNote(req, res, id);
+          break;
+          
         default:
           break;
       }
