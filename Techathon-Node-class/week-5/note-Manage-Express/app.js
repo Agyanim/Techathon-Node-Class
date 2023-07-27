@@ -5,7 +5,8 @@ const app=express()
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
-app.use([accountRouter,noteRouter])
+app.use("/account",accountRouter)
+app.use("/note",noteRouter)
 app.get("/",(req,res)=>{
     res.send("Home")
 })

@@ -1,18 +1,18 @@
 const express = require("express");
 const {
-	createAccount,
-	getAllAccount,
-	getAccountById,
-	updateAccount,
-	deleteAccount,
+  createAccount,
+  getAllAccount,
+  getAccountById,
+  updateAccount,
+  deleteAccount,
 } = require("./account");
 
 const accountRouter = express.Router();
 
-accountRouter.post("/account", createAccount);
-accountRouter.get("/account", getAllAccount);
-accountRouter.get("/account/:id", getAccountById);
-accountRouter.put("/account/:id", updateAccount);
-accountRouter.delete("/account/:id", deleteAccount);
+accountRouter.post("/", createAccount);
+accountRouter.get("/", getAllAccount);
+accountRouter.get("/:id", getAccountById);
+accountRouter.put("/:id", updateAccount);
+accountRouter.delete("/:id", deleteAccount);
 
 module.exports = accountRouter;
