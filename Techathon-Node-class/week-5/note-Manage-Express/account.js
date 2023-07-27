@@ -1,33 +1,56 @@
 const { readFile, readFileSync, writeFileSync } = require("fs");
 const cuid = require("cuid");
-const { writeToFile } = require("./handlingFiles");
+const AccountModel=require("./model/account")
 
 exports.createAccount = async (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
-    const account = {
-      userId: cuid(),
-      firstName: firstName,
-      lastName: lastName,
-      password: password,
-      email: email.toLowerCase(),
-      createdOn: new Date()
-        .toDateString()
-        .replace(/U/, " ")
-        .replace(/\..+/, ""),
-      modifiedOn: new Date()
-        .toDateString()
-        .replace(/U/, " ")
-        .replace(/\..+/, ""),
-    };
+//     let account = new AccountModel({
+//       userId: cuid(),
+//       firstName: firstName,
+//       lastName: lastName,
+//       password: password,
+//       email: email.toLowerCase(),
+//       createdOn: new Date()
+//         .toDateString()
+//         .replace(/U/, " ")
+//         .replace(/\..+/, ""),
+//       modifiedOn: new Date()
+//         .toDateString()
+//         .replace(/U/, " ")
+//         .replace(/\..+/, ""),
+//     }
+// )  ;
 
-    if (!firstName || !lastName || !password || !email) {
+let account = new AccountModel({
+  userId: cuid(),
+  firstName: "firstName",
+  lastName: "lastName",
+  password: "password",
+  email: "email".toLowerCase(),
+  createdOn: new Date()
+    .toDateString()
+    .replace(/U/, " ")
+    .replace(/\..+/, ""),
+  modifiedOn: new Date()
+    .toDateString()
+    .replace(/U/, " ")
+    .replace(/\..+/, ""),
+}
+).save()  ;
+
+   if (!firstName || !lastName || !password || !email) {
       return res.status(400).json({ message: "Sorry, all field are required" });
     }
 
     let data = await readFileSync("./account.json", "utf-8");
     data = JSON.parse(data);
     data.push(account);
+
+AccountModel={
+
+}
+
     writeFileSync("./account.json", JSON.stringify(data));
     return res.status(201).json({ message: "success", account: data });
   } catch (error) {
