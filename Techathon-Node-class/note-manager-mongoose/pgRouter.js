@@ -5,8 +5,8 @@ const {
 	getUserById,
 	updateUser,
 	deleteUser,
-} = require("./controller/mongodb/user");
-const { auth } = require("./controller/mongodb/auth");
+} = require("./controller/postgres/user");
+const { auth } = require("./controller/postgres/auth");
 const userRouter = express.Router();
 const authRouter = express.Router();
 const noteRouter = express.Router();

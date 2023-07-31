@@ -16,4 +16,4 @@ const noteSchema = mongoose.Schema({
   createdON: Date,
   modifiedON: Date,
 });
-module.exports = mongoose.model("Note", noteSchema);
+module.exports = mongoose.model("Note", noteSchema);//Note is the collection name

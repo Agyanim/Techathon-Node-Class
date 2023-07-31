@@ -1,24 +1,31 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { userRouter } = require("./router");
+// const { userRouter, authRouter } = require("./router");//for mongodb
+const { userRouter, authRouter } = require("./pgRouter");//for posgres db
+const { pgClient } = require("./util/pgConnection");
 dotenv = require("dotenv").config();
 mongoose.set("strictQuery", false);
 const PORT = process.env.PORT;
+
+
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(userRouter);
+app.use([userRouter, authRouter]);
 
 const start = async () => {
-  try {
-    mongoose.connect(process.env.CONNECTION);
-    app.listen(PORT, () => {
-      console.log(`Server is started and listening on port ${PORT}...`);
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
+	try {
+		// mongodb connection string
+		// mongoose.connect(process.env.CONNECTION);
+		// postgres connection string
+		await pgClient.connect();
+		app.listen(PORT, () => {
+			console.log(`Server is started and listening on port ${PORT}...`);
+		});
+	} catch (error) {
+		console.log(error.message);
+	}
 };
 
 start();
