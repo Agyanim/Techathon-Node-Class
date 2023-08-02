@@ -1,5 +1,6 @@
 const { HashPassword } = require("../../util/password");
 const { pgClient } = require("../../util/pgConnection");
+const  uuid  = require("uuid");
 
 exports.createUser = async (req, res) => {
 	try {
@@ -10,11 +11,12 @@ exports.createUser = async (req, res) => {
 		const hashPassword = await HashPassword(password);
 		const sqlQuery = `
 		INSERT INTO 
-		user_tbl (first_name,last_name,email,password,created_on,modified_on)
-    	VALUES($1,$2,$3,$4,$5,$6) RETURNING *`;
+		user_tbl (user_id,first_name,last_name,email,password,created_on,modified_on)
+    	VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`;
 		const createdOn = new Date().toLocaleDateString();
 		const modifiedOn = new Date().toLocaleDateString();
 		const sqlValues = [
+			user_id = uuid.v4(),
 			firstName,
 			lastName,
 			email,
@@ -32,7 +34,7 @@ exports.createUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
 	try {
 		const sqlQuery = `SELECT 
-		first_name AS "First Name",last_name AS "Last Name",email AS "Email",created_on AS "Created On",modified_on AS "Modified On"
+		user_id AS "User Id",first_name AS "First Name",last_name AS "Last Name",email AS "Email",created_on AS "Created On",modified_on AS "Modified On"
 		FROM user_tbl 
 		ORDER BY first_name
 		`;

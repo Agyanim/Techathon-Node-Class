@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 // const { userRouter, authRouter } = require("./router");//for mongodb
-const { userRouter, authRouter } = require("./pgRouter");//for posgres db
+const { userRouter, authRouter, noteRouter } = require("./pgRouter");//for posgres db
 const { pgClient } = require("./util/pgConnection");
 dotenv = require("dotenv").config();
 mongoose.set("strictQuery", false);
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use([userRouter, authRouter]);
+app.use([userRouter, authRouter,noteRouter]);
 
 const start = async () => {
 	try {
