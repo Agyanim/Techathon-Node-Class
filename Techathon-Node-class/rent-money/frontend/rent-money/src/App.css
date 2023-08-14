@@ -1,0 +1,18 @@
+/* create account form */
+.create-account-form label{
+    @apply text-white
+}
+.create-account-form div{
+    @apply w-full
+}
+
+/* end of create account form */
+.form-header{
+    @apply pt-10 -mb-10 text-3xl font-bold text-center text-white lg:-mb-[6rem]
+}
+.hide{
+    @apply hidden
+}
+.show{
+    @apply flex
+}
