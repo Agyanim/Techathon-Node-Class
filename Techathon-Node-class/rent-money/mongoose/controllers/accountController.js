@@ -63,7 +63,7 @@ exports.findAccountById = async (req, res, accountId) => {
 };
 exports.updateAccount = async (req, res, accountId) => {
 	accountId = req.params.accountId;
-	const { name, address } = req.body;
+	const { accountName, address } = req.body;
 	try {
 		if (!accountId) {
 			return res.status(400).json({ message: "User id must be provided" });
@@ -75,7 +75,7 @@ exports.updateAccount = async (req, res, accountId) => {
 
 		const updatedAccount = await updateAccountService(
 			accountId,
-			name,
+			accountName,
 			address,
 			findAccount
 		);

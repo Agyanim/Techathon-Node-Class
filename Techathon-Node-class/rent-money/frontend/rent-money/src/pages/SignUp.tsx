@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AccountForm from "../components/AccountForm"
+import AccountForm from "../components/AccountFormComponent"
 const SignUpPage:React.FC = () => {
   const Account:Account = {
 		accountName: "",

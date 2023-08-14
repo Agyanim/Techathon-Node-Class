@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router";
-import "./App.css";
 import "./index.css"
+import "./App.css";
 import Home from "./pages/Home";
-import GlobalLayout from "./components/GlobalLayout";
+import GlobalLayout from "./components/GlobalLayoutComponent";
 import SignUpPage from "./pages/SignUp";
 import LogInPage from "./pages/LogIn";
 import UserDashBoard from "./pages/UserDashBoard";
-import GlobalLayoutUerDashboard from "./components/GlobalLayoutUserDashboard";
+import GlobalLayoutUerDashboard from "./components/GlobalLayoutUserDashboardComponent";
+import UserProfilePage from "./pages/UserProfile";
 
 const App = () => {
 	return (
@@ -18,6 +19,7 @@ const App = () => {
 			</Route>
 			<Route path={"/login/userdashboard"} element={<GlobalLayoutUerDashboard />}>
 				<Route index element={<UserDashBoard />} />
+				<Route path="/login/userdashboard/userprofile" element={<UserProfilePage/>}/>
 			</Route>
 		</Routes>
 	);

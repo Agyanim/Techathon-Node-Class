@@ -35,10 +35,10 @@ export const logIntoAccount = async (url: string, account: AuthAccount) => {
 	}
 };
 
-export const getCurrentUser=async(endPoint:string)=>{
+export const getCurrentUser=async(url:string)=>{
 
 	try {
-		const currentUser=await instance.get(endPoint)
+		const currentUser=await instance.get(url)
 		return currentUser
 	
 	} catch (error) {
@@ -49,4 +49,8 @@ export const getCurrentUser=async(endPoint:string)=>{
 			
 		}
 	}
+}
+
+export const updateAccount=async(url: string, account: Account)=>{
+	await instance.put(url,account)
 }
