@@ -4,6 +4,7 @@ const {
 	findAccountByIdService,
 	deleteAccountService,
 	updateAccountService,
+	addBioInfoService,
 } = require("../services/accountService");
 
 exports.createAccount = async (req, res) => {
@@ -84,3 +85,19 @@ exports.updateAccount = async (req, res, accountId) => {
 		return res.status(500).json({ Error: error.message });
 	}
 };
+
+
+exports.addBioInfo=async(req,res)=>{
+console.log(req.body);
+	try {
+		const {firstName,lastName,phone,occupation,accountId}=req.body
+		if(!firstName||!lastName||!phone||!occupation){
+			return res.status(401).json("Sorry,all fields must be provided")
+		}
+		const bioInfo=await addBioInfoService(firstName,lastName,phone,occupation,accountId)
+		 res.status(200).json({bioInfo})
+	
+	} catch (error) {
+		res.status(500).json({Error:error.message})
+	}
+}

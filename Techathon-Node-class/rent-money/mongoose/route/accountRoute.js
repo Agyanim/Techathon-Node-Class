@@ -5,10 +5,12 @@ const {
 	deleteAccount,
 	findAccountById,
 	updateAccount,
+	addBioInfo,
 } = require("../controllers/accountController");
 const accountRoute = express.Router();
 
 accountRoute.route("/").post(createAccount).get(getAllAccount);// this helps to avoid repetition
+accountRoute.route("/bioinfo").post(addBioInfo);// this helps to avoid repetition
 accountRoute
 	.route("/:accountId")
 	.delete(deleteAccount)

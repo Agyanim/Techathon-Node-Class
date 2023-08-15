@@ -20,3 +20,11 @@ interface UserContextType {
 	// setUserAccount:React.Dispatch<React.SetStateAction<UserAccount>>
 }
 
+interface BioInfo{
+    accountId:string,
+    firstName:string,
+    lastName:string,
+    phone:string,
+    occupation:string
+
+}
