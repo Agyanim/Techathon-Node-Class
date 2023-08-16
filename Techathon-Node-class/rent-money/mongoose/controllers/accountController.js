@@ -4,6 +4,9 @@ const {
 	findAccountByIdService,
 	deleteAccountService,
 	updateAccountService,
+	addBioInfoService,
+	findBioInfoByAccountId,
+	updateBioInfoService,
 } = require("../services/accountService");
 
 exports.createAccount = async (req, res) => {
@@ -84,3 +87,41 @@ exports.updateAccount = async (req, res, accountId) => {
 		return res.status(500).json({ Error: error.message });
 	}
 };
+
+
+exports.addBioInfo=async(req,res)=>{
+console.log(req.body);
+	try {
+		const {firstName,lastName,phone,occupation,accountId}=req.body
+		if(!accountId){
+			return res.status(401).json("Sorry,account id must be provided")
+		}
+		const bioInfo=await addBioInfoService(firstName,lastName,phone,occupation,accountId)
+		 res.status(200).json({bioInfo})
+	
+	} catch (error) {
+		res.status(500).json({Error:error.message})
+	}
+}
+
+exports.updateBioInfo=async(req,res)=>{
+	try {
+	const {firstName,lastName,accountId,occupation,phone}=req.body
+
+	if (!firstName || !lastName || !accountId){
+		return res.status(401).json("First Name, Last Name and AccountId must be provided")
+	}
+	const findAccount= await findBioInfoByAccountId(accountId)
+	console.log(findAccount);
+	
+	if (findAccount){
+		const updateAccount= await updateBioInfoService(firstName,lastName,occupation,phone,accountId,findAccount)
+		return res.status(200).json({updateAccount})
+	}
+	
+} catch (error) {
+	res.status(500).json({Error:error.message})
+}
+
+
+}
