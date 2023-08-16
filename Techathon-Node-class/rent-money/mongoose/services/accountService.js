@@ -21,17 +21,24 @@ exports.findAccountByIdService = async (accountId) => {
 	return account;
 };
 
+exports.findBioInfoByAccountId = async (accountId) => {
+	const findAccount = await BioInfoModel.findOne(
+		{ accountId: accountId }
+		
+	);
+	return findAccount;
+};
 exports.deleteAccountService = async (accountId) => {
 	const deletedAccount = await AccountModel.findByIdAndDelete(accountId);
 	return deletedAccount;
 };
 
 exports.updateAccountService = async (
-	accountId,
 	name,
 	address,
 	findAccount
 ) => {
+	const accountId=findAccount._id
 	name !== undefined ? (findAccount.name = name) : findAccount;
 	address !== undefined ? (findAccount.address = address) : findAccount;
 	const updatedAccount = await AccountModel.findByIdAndUpdate(
@@ -41,15 +48,42 @@ exports.updateAccountService = async (
 	);
 	return updatedAccount;
 };
-exports.addBioInfoService = async(firstName, lastName, phone, occupation,accountId) => {
+exports.addBioInfoService = async (
+	firstName,
+	lastName,
+	phone,
+	occupation,
+	accountId
+) => {
 	const bioInfo = new BioInfoModel({
 		accountId,
 		firstName,
 		lastName,
 		phone,
 		occupation,
-
 	});
-	await bioInfo.save()
-	return bioInfo
+	await bioInfo.save();
+	return bioInfo;
+};
+
+exports.updateBioInfoService = async (
+	firstName,
+	lastName,
+	phone,
+	occupation,
+	accountId,
+	findAccount
+) => {
+	firstName !== undefined ? (findAccount.firstName = firstName) : findAccount;
+	lastName !== undefined ? (findAccount.lastName = lastName) : findAccount;
+	phone !== undefined ? (findAccount.phone = phone) : findAccount;
+	occupation !== undefined
+		? (findAccount.occupation = occupation)
+		: findAccount;
+	const updatedBioInfo = await BioInfoModel.findOneAndUpdate(
+		{accountId:accountId},
+		findAccount,
+		{ new: true }
+	);
+	return updatedBioInfo
 };

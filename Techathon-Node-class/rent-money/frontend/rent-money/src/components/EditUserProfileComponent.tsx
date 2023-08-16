@@ -1,20 +1,27 @@
 import { FormEvent, ChangeEvent, useState, useEffect, useRef } from "react";
 import { useUserContent } from "../contexts/UserContext";
 import { getCurrentUserService } from "../util/accountServices";
-import { updateAccount } from "../util/createAccount";
+import { updateBioInfo } from "../util/createAccount";
 const initialState: UserAccount = {
 	accountId: "",
 	accountName: "",
 	address: "",
 	accountNumber: "",
 };
-
+const bioInfoInitialState:BioInfo={
+	accountId: "",
+	firstName: "",
+	lastName: "",
+	occupation: "",
+	phone:""
+}
 const UserProfileComponent = () => {
 	const { ...User } = useUserContent();
 	const currentUser = User.currentUser;
 	// user state hook
 	const [user, setUser] = useState<UserAccount>(initialState);
-	const accountNameRef = useRef<HTMLInputElement>(null);
+	const [bioInfo, setBioInfo]=useState<BioInfo>(bioInfoInitialState)
+	const firstNameRef = useRef<HTMLInputElement>(null);
 	useEffect(() => {
 		//fetching stored data from localStorage
 		const storedUser = localStorage.getItem("currentUser");
@@ -23,25 +30,28 @@ const UserProfileComponent = () => {
 		if (storedUser) {
 			passedUser = JSON.parse(storedUser);
 		}
-		//getting the user id form localStorage of from context
+		//getting the user id form localStorage or from context
 		const Id = currentUser.accountId || passedUser.accountId;
 		getCurrentUserService(Id, setUser);
-		accountNameRef.current?.focus();
+		firstNameRef.current?.focus();
 	},[]);
 		
 
 	const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e?.target.value;
-		setUser({ ...user, [e.target.name]: value });
+		setBioInfo({ ...bioInfo, [e.target.name]: value });
 	};
 
 	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
 		e?.preventDefault();
-		const account = {
-			accountName: user.accountName,
-			address: user.address,
+		const updateBioinfo = {
+			accountId:user.accountId,
+			firstName: bioInfo.firstName,
+			lastName: bioInfo.lastName,
+			phone:bioInfo.phone,
+			occupation:bioInfo.occupation
 		};
-		await updateAccount(`/account/${user.accountId}`, account);
+		await updateBioInfo(`/account/bioinfo/${user.accountId}`, updateBioinfo);
 
 		alert("Account updated successfully");
 	};
@@ -52,18 +62,47 @@ const UserProfileComponent = () => {
 				onSubmit={submitHandler}
 			>
 				<div>
+					<label className="profile-label" htmlFor="firstName">
+						First name:
+					</label>
+					<br />
+					<input
+						ref={firstNameRef}
+						className="profile-text-input"
+						type="text"
+						placeholder="Enter first name"
+						name="firstName"
+						value={bioInfo.firstName}
+						onChange={onchangeHandler}
+					/>
+				</div>
+				<div>
+					<label className="profile-label" htmlFor="lastName">
+						Last name:
+					</label>
+					<br />
+					<input
+						className="profile-text-input"
+						type="text"
+						placeholder="Enter last name"
+						name="lastName"
+						value={bioInfo.lastName}
+						onChange={onchangeHandler}
+					/>
+				</div>
+				<div>
 					<label className="profile-label" htmlFor="accountName">
 						Account name:
 					</label>
 					<br />
 					<input
-						ref={accountNameRef}
 						className="profile-text-input"
 						type="text"
-						placeholder="Enter Account Name"
+						placeholder="Account name"
 						name="accountName"
 						value={user.accountName}
 						onChange={onchangeHandler}
+						disabled
 					/>
 				</div>
 				<div>
@@ -79,6 +118,38 @@ const UserProfileComponent = () => {
 						name="address"
 						value={user.address}
 						onChange={onchangeHandler}
+						disabled
+					/>
+				</div>
+				<div>
+					<label className="profile-label" htmlFor="phone">
+						Phone:
+					</label>
+					<br />
+
+					<input
+						className="profile-text-input"
+						type="text"
+						placeholder="Phone"
+						name="phone"
+						value={bioInfo.phone}
+						onChange={onchangeHandler}
+					/>
+				</div>
+				<div>
+					<label className="profile-label" htmlFor="occupation">
+						Occupation:
+					</label>
+					<br />
+
+					<input
+						className="profile-text-input"
+						type="text"
+						placeholder="occupation"
+						name="occupation"
+						value={bioInfo.occupation}
+						onChange={onchangeHandler}
+						
 					/>
 				</div>
 				<br />

@@ -5,25 +5,23 @@ const bioInfoSchema = new Schema(
 		accountId: {
 			type: Schema.Types.ObjectId,
 			ref: "Account",
+			required: true,
+
 		},
 		firstName: {
 			type: String,
-			required: true,
 		},
 		lastName: {
 			type: String,
-			required: true,
 		},
 		phone: {
 			type: String,
-			required: true,
 		},
 		occupation: {
 			type: String,
-			required: true,
 		},
 	},
-	{ timestamp: true }
+	{ timestamps: true }
 );
 
 module.exports = BioInfoSModel = model("BioInfo", bioInfoSchema);

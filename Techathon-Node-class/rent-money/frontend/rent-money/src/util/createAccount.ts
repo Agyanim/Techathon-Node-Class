@@ -11,10 +11,10 @@ export const createAccount = async (
 		const result = await instance.post(url, account);
 		return result;
 	} catch (error) {
-        const axiosError= error as AxiosError
-        if(axiosError.response){
-         return   alert(axiosError.response.data)
-        }
+		const axiosError = error as AxiosError;
+		if (axiosError.response) {
+			return alert(axiosError.response.data);
+		}
 		console.log(error);
 	}
 };
@@ -27,30 +27,38 @@ export const logIntoAccount = async (url: string, account: AuthAccount) => {
 		const axiosError = error as AxiosError;
 		if (axiosError.response) {
 			alert(axiosError.response.data);
+		} else {
+			console.log(axiosError.message);
 		}
-        else{
-            console.log(axiosError.message);
-            
-        }
 	}
 };
 
-export const getCurrentUser=async(url:string)=>{
-
+export const getCurrentUser = async (url: string) => {
 	try {
-		const currentUser=await instance.get(url)
-		return currentUser
-	
+		const currentUser = await instance.get(url);
+		return currentUser;
 	} catch (error) {
-		const axiosError = error as AxiosError
-		if (axiosError.response){
-			alert("An error occurred. Check your URL and try again")
+		const axiosError = error as AxiosError;
+		if (axiosError.response) {
+			alert("An error occurred. Check your URL and try again");
 			console.log(axiosError.response.data);
+		}
+	}
+};
+
+export const updateBioInfo = async (endPoint: string, bioInfo: BioInfo) => {
+	await instance.put(endPoint, bioInfo);
+};
+
+export const createBioInfo = async (endPoint: string, bioInfo: BioInfo) => {
+	try {
+		await instance.post(endPoint, bioInfo);
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		if (axiosError) {
+			alert(axiosError.message);
+			console.log(axiosError);
 			
 		}
 	}
-}
-
-export const updateAccount=async(url: string, account: Account)=>{
-	await instance.put(url,account)
-}
+};

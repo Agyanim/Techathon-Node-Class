@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent } from "react";
-import { createAccount } from "../util/createAccount";
+import { createAccount, createBioInfo } from "../util/createAccount";
 import { Link, useLocation } from "react-router-dom";
 interface AccountFormProps {
 	account: Account;
@@ -20,6 +20,14 @@ const AccountForm: React.FC<AccountFormProps> = ({ account, setAccount }) => {
 				const result = await createAccount("/account", account);
 				if (result) {
 					const account = result?.data.account;
+					const bioInfo = {
+						accountId: account._id,
+						firstName: "",
+						lastName: "",
+						occupation: "",
+						phone: "",
+					};
+					await createBioInfo("account/bioinfo", bioInfo);
 					alert(`Account Name: ${account.name}
 Account Number: ${account.accountNumber}
 					`);

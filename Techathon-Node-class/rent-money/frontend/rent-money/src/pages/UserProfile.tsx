@@ -1,4 +1,4 @@
-import UserProfileComponent from "../components/UserProfileComponent"
+import UserProfileComponent from "../components/EditUserProfileComponent"
 
 const UserProfilePage = () => {
   return (
