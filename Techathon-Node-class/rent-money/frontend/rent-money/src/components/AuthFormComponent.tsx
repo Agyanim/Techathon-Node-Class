@@ -24,6 +24,8 @@ const AuthForm: React.FC<AuthAccountFormProps> = ({ account, setAccount }) => {
 			e?.preventDefault();
 
 			const result = await logIntoAccount("/auth", account);
+			console.log(result);
+			
 			if (result?.data.findAccount) {
 				const findAccount = result.data.findAccount;
 				if (findAccount) {

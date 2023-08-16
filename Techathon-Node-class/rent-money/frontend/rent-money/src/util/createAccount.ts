@@ -29,7 +29,7 @@ export const logIntoAccount = async (url: string, account: AuthAccount) => {
 			alert(axiosError.response.data);
 		}
         else{
-            console.log(axiosError.message);
+            alert(axiosError.message);
             
         }
 	}
