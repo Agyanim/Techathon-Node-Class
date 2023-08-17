@@ -21,7 +21,6 @@ interface UserContextType {
 }
 
 interface BioInfo{
-    accountId:string,
     firstName:string,
     lastName:string,
     phone:string,

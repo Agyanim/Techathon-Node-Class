@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent } from "react";
-import { createAccount, createBioInfo } from "../util/createAccount";
+import { createAccount, createBioInfo } from "../util/accountControls";
 import { Link, useLocation } from "react-router-dom";
 interface AccountFormProps {
 	account: Account;

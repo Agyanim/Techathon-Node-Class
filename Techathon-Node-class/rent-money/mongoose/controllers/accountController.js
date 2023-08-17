@@ -1,3 +1,4 @@
+const bioInfoModel = require("../models/bioInfoModel");
 const {
 	createAccountService,
 	getAllAccountService,
@@ -90,7 +91,6 @@ exports.updateAccount = async (req, res, accountId) => {
 
 
 exports.addBioInfo=async(req,res)=>{
-console.log(req.body);
 	try {
 		const {firstName,lastName,phone,occupation,accountId}=req.body
 		if(!accountId){
@@ -103,10 +103,26 @@ console.log(req.body);
 		res.status(500).json({Error:error.message})
 	}
 }
-
-exports.updateBioInfo=async(req,res)=>{
+exports.getBioInfo=async(req,res,accountId)=>{
 	try {
-	const {firstName,lastName,accountId,occupation,phone}=req.body
+		accountId=req.params.accountId
+		if(!accountId){
+			return res.status(400).json("Please account id must be provided")
+		}
+		const bioInfo=await findBioInfoByAccountId(accountId)
+		if(!bioInfo){
+			return res.status(401).json("Sorry, no record found")
+		}
+		res.status(200).json({bioInfo})
+	} catch (error) {
+		res.status(500).json({Error:error.message})
+	}
+}
+
+exports.updateBioInfo=async(req,res,accountId)=>{
+	try {
+		accountId=req.params.accountId
+	const {firstName,lastName,occupation,phone}=req.body
 
 	if (!firstName || !lastName || !accountId){
 		return res.status(401).json("First Name, Last Name and AccountId must be provided")
