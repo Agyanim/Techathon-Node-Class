@@ -8,6 +8,7 @@ const {
 	addBioInfoService,
 	findBioInfoByAccountId,
 	updateBioInfoService,
+	bioInfoExtendedService,
 } = require("../services/accountService");
 
 exports.createAccount = async (req, res) => {
@@ -140,4 +141,15 @@ exports.updateBioInfo=async(req,res,accountId)=>{
 }
 
 
+}
+
+exports.getBioInfoExtended=async(req,res)=>{
+	try {
+		const result =await bioInfoExtendedService()
+		if (result){
+			res.status(200).json(result)
+		}
+	} catch (error) {
+		res.status(500).json({Error:error.message})
+	}
 }

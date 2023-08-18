@@ -87,3 +87,15 @@ exports.updateBioInfoService = async (
 	);
 	return updatedBioInfo
 };
+
+exports.bioInfoExtendedService=async()=>{
+	return await BioInfoModel.aggregate([{
+		$lookup:{
+			from:"accounts",
+			localField:"accountId",
+			foreignField:"_id",
+			as:"Account"
+		}
+	}]).exec()
+	// console.log(result[0]);
+}
