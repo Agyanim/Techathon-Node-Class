@@ -95,7 +95,21 @@ exports.bioInfoExtendedService=async()=>{
 			localField:"accountId",
 			foreignField:"_id",
 			as:"Account"
-		}
-	}]).exec()
+		},
+		
+	},
+	
+	{
+		$project:{
+			__v:0,
+			Account:{
+				_id:0,
+				__v:0
+			}	
+			}
+	}
+	
+]).exec()
 	// console.log(result[0]);
 }
+// 

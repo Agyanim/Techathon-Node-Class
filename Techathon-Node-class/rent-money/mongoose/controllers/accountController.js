@@ -153,3 +153,15 @@ exports.getBioInfoExtended=async(req,res)=>{
 		res.status(500).json({Error:error.message})
 	}
 }
+exports.getBioInfoExtendedById=async(req,res,id)=>{
+	id=req.params.accountId
+	try {
+		const result =await bioInfoExtendedService()
+		if (result){
+		const data=	result.find(account=>account.accountId==id)
+			res.status(200).json(data)
+		}
+	} catch (error) {
+		res.status(500).json({Error:error.message})
+	}
+}

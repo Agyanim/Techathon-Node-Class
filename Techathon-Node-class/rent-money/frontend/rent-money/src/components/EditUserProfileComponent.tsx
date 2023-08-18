@@ -33,11 +33,10 @@ const UserProfileComponent = () => {
   };
   const fetchUserBioInfo = async (Id: string) => {
     const result = await getBioInfo(Id);
-	console.log(result);
-	
     if (result) {
       setBioInfo(result);
     }
+    console.log(result);
   };
 
   useEffect(() => {
@@ -64,7 +63,6 @@ const UserProfileComponent = () => {
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     const updateBioinfo = {
-     
       firstName: bioInfo.firstName,
       lastName: bioInfo.lastName,
       phone: bioInfo.phone,
