@@ -18,10 +18,20 @@
 }
 .profile-text-input {
 	@apply border border-gray-500;
-}
+}  
 .profile-form div {
-	@apply w-full;
+	@apply w-full grid grid-cols-3 lg:grid-cols-4  items-center;
 }
-.profile-label {
-	@apply text-gray-600;
+.profile-form div input {
+	@apply col-span-2 lg:col-span-3 text-sm lg:text-base;
+}
+.profile-form label {
+	@apply  text-gray-600 text-sm lg:text-base  ;
+}
+.profile-section p{
+	@apply mb-10 md:text-xl grid grid-cols-2  gap-2 md:gap-10
+
+}
+.profile-section span{
+
 }

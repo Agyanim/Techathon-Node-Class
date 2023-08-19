@@ -22,10 +22,7 @@ exports.findAccountByIdService = async (accountId) => {
 };
 
 exports.findBioInfoByAccountId = async (accountId) => {
-	const findAccount = await BioInfoModel.findOne(
-		{ accountId: accountId }
-		
-	);
+	const findAccount = await BioInfoModel.findOne({ accountId: accountId });
 	return findAccount;
 };
 exports.deleteAccountService = async (accountId) => {
@@ -33,12 +30,8 @@ exports.deleteAccountService = async (accountId) => {
 	return deletedAccount;
 };
 
-exports.updateAccountService = async (
-	name,
-	address,
-	findAccount
-) => {
-	const accountId=findAccount._id
+exports.updateAccountService = async (name, address, findAccount) => {
+	const accountId = findAccount._id;
 	name !== undefined ? (findAccount.name = name) : findAccount;
 	address !== undefined ? (findAccount.address = address) : findAccount;
 	const updatedAccount = await AccountModel.findByIdAndUpdate(
@@ -81,35 +74,35 @@ exports.updateBioInfoService = async (
 		? (findAccount.occupation = occupation)
 		: findAccount;
 	const updatedBioInfo = await BioInfoModel.findOneAndUpdate(
-		{accountId:accountId},
+		{ accountId: accountId },
 		findAccount,
 		{ new: true }
 	);
-	return updatedBioInfo
+	return updatedBioInfo;
 };
 
-exports.bioInfoExtendedService=async()=>{
-	return await BioInfoModel.aggregate([{
-		$lookup:{
-			from:"accounts",
-			localField:"accountId",
-			foreignField:"_id",
-			as:"Account"
+exports.bioInfoExtendedService = async () => {
+	const pipeline = [
+		{
+			$lookup: {
+				from: "accounts",
+				localField: "accountId",
+				foreignField: "_id",
+				as: "Account",
+			},
 		},
-		
-	},
-	
-	{
-		$project:{
-			__v:0,
-			Account:{
-				_id:0,
-				__v:0
-			}	
-			}
-	}
-	
-]).exec()
+
+		{
+			$project: {
+				__v: 0,
+				Account: {
+					_id: 0,
+					__v: 0,
+				},
+			},
+		},
+	];
+	return await BioInfoModel.aggregate(pipeline).exec();
 	// console.log(result[0]);
-}
-// 
+};
+//

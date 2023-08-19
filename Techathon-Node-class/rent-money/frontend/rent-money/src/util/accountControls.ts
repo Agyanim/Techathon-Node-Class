@@ -103,3 +103,15 @@ export const logIntoAccount = async (url: string, account: AuthAccount) => {
     }
   }
 };
+
+export const getBioInfoExtend=async(endPoint:string)=>{
+  try {
+    return await getBioInfoService(endPoint)
+
+  } catch (error) {
+    const axiosError=error as AxiosError
+    if(axiosError.response?.data){
+      alert(axiosError.response.data)
+    }
+  }
+}

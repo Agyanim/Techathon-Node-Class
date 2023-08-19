@@ -1,7 +1,7 @@
 import { FormEvent, ChangeEvent } from "react";
 import { logIntoAccount } from "../util/accountControls";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContent } from "../contexts/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 
 interface AuthAccountFormProps {
 	account: AuthAccount;
@@ -16,7 +16,7 @@ const AuthForm: React.FC<AuthAccountFormProps> = ({ account, setAccount }) => {
 		const value = e?.target.value;
 		setAccount({ ...account, [e.target.name]: value });
 	};
-	const userContent = useUserContent();
+	const userContent = useUserContext();
 	const { ...currentUser } = userContent;
 
 	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,7 +37,7 @@ const AuthForm: React.FC<AuthAccountFormProps> = ({ account, setAccount }) => {
 					};
 					console.log(user);
 					currentUser.setCurrentUser(user);
-					navigate("/login/userdashboard");
+					navigate("/userdashboard");
 					setAccount({
 						accountName: "",
 						accountNumber: "",
@@ -49,13 +49,6 @@ const AuthForm: React.FC<AuthAccountFormProps> = ({ account, setAccount }) => {
 		}
 	};
 
-	// 	const useSubmitHandler=(e: FormEvent<HTMLFormElement>)=>{
-	// 	useEffect(() => {
-	// 		submitHandler(e)
-		
-	// 	}, [e])
-		
-	// }
 
 	return (
 		<section className="flex items-center justify-center w-[100%] h-screen">

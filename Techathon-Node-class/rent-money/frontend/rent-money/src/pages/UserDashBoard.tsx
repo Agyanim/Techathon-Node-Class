@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useUserContent } from "../contexts/UserContext";
-import { getBioInfo, getCurrentUser } from "../util/accountControls";
+import { useUserContext } from "../contexts/UserContext";
+import { getCurrentUser } from "../util/accountControls";
 const initialState: UserAccount = {
   accountId: "",
   accountName: "",
@@ -8,7 +8,7 @@ const initialState: UserAccount = {
   accountNumber: "",
 };
 const UserDashBoard = () => {
-  const { ...User } = useUserContent();
+  const { ...User } = useUserContext();
   const currentUser = User.currentUser;
   // user state hook
   const [user, setUser] = useState<UserAccount>(initialState);
@@ -39,8 +39,6 @@ const UserDashBoard = () => {
         <div className="w-[5rem] h-[5rem] bg-white rounded-full ml-5"></div>
         <div className="flex flex-col">
           <p className="text-white">{user.accountName}</p>
-          <p className="text-white">Account: {user.accountNumber}</p>
-          <p className="text-white">{user.address}</p>
         </div>
       </section>
       <section className="row-span-5"></section>

@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent, useState, useEffect, useRef } from "react";
-import { useUserContent } from "../contexts/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 import {
   getBioInfo,
   getCurrentUser,
@@ -17,8 +17,8 @@ const bioInfoInitialState: BioInfo = {
   occupation: "",
   phone: "",
 };
-const UserProfileComponent = () => {
-  const { ...User } = useUserContent();
+const EditUserProfile = () => {
+  const { ...User } = useUserContext();
   const currentUser = User.currentUser;
   // user state hook
   const [user, setUser] = useState<UserAccount>(initialState);
@@ -53,7 +53,7 @@ const UserProfileComponent = () => {
     fetchUserBioInfo(`account/bioinfo/${Id}`);
 
     firstNameRef.current?.focus();
-  }, []);
+  },[]);
 
   const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e?.target.value;
@@ -73,16 +73,15 @@ const UserProfileComponent = () => {
     alert("Account updated successfully");
   };
   return (
-    <section className="flex items-center justify-center w-[100%] h-screen">
+    <section className="flex items-center justify-center w-[100%] ">
       <form
-        className=" profile-form flex flex-col w-[90%] md:w-[60%] lg:w-[30%] h-[65%] border border-red-300 rounded px-[10%] md:px-[5%] lg:px-[3%] justify-center items-center lg:h-[55%] form-div"
+        className=" profile-form flex flex-col w-[90%] md:w-[60%] lg:w-[50%] h-[100%] border border-red-300 rounded px-[10%] md:px-[5%] lg:px-[3%] lg:py-[1.5rem] my-[2rem] justify-center items-center lg:h-[55%] form-div "
         onSubmit={submitHandler}
       >
         <div>
-          <label className="profile-label" htmlFor="firstName">
+          <label className="" htmlFor="firstName">
             First name:
           </label>
-          <br />
           <input
             ref={firstNameRef}
             className="profile-text-input"
@@ -94,10 +93,9 @@ const UserProfileComponent = () => {
           />
         </div>
         <div>
-          <label className="profile-label" htmlFor="lastName">
+          <label className="" htmlFor="lastName">
             Last name:
           </label>
-          <br />
           <input
             className="profile-text-input"
             type="text"
@@ -108,10 +106,9 @@ const UserProfileComponent = () => {
           />
         </div>
         <div>
-          <label className="profile-label" htmlFor="accountName">
+          <label className="" htmlFor="accountName">
             Account name:
           </label>
-          <br />
           <input
             className="profile-text-input"
             type="text"
@@ -123,10 +120,9 @@ const UserProfileComponent = () => {
           />
         </div>
         <div>
-          <label className="profile-label" htmlFor="address">
+          <label className="" htmlFor="address">
             Address:
           </label>
-          <br />
 
           <input
             className="profile-text-input"
@@ -139,10 +135,9 @@ const UserProfileComponent = () => {
           />
         </div>
         <div>
-          <label className="profile-label" htmlFor="phone">
+          <label className="" htmlFor="phone">
             Phone:
           </label>
-          <br />
 
           <input
             className="profile-text-input"
@@ -154,10 +149,9 @@ const UserProfileComponent = () => {
           />
         </div>
         <div>
-          <label className="profile-label" htmlFor="occupation">
+          <label className="" htmlFor="occupation">
             Occupation:
           </label>
-          <br />
 
           <input
             className="profile-text-input"
@@ -171,7 +165,7 @@ const UserProfileComponent = () => {
         <br />
         <button
           type="submit"
-          className="w-full py-2 text-lg font-bold text-white bg-pink-600 border-none rounded hover:bg-red-700"
+          className="w-full lg:w-[20%] py-2 mt-[-2rem] text-lg font-bold text-white bg-pink-600 border-none rounded hover:bg-red-700 "
         >
           Update
         </button>
@@ -180,4 +174,4 @@ const UserProfileComponent = () => {
   );
 };
 
-export default UserProfileComponent;
+export default EditUserProfile;
